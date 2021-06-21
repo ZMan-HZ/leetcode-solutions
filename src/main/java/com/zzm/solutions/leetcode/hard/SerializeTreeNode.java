@@ -5,6 +5,7 @@ import com.zzm.solutions.leetcode.common.TreeNode;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.StringJoiner;
@@ -48,7 +49,7 @@ public class SerializeTreeNode {
      * <p>
      * 2. S2不为空时弹出，并将其子节点按 右 左 的顺序压入S1；
      *
-     * @param root 数根节点
+     * @param root 根节点
      * @return 序列化的value字符串
      */
     public static String zigZagSerializeTreeNode(TreeNode root) {
@@ -105,7 +106,7 @@ public class SerializeTreeNode {
      * <p>
      * 2. S2不为空时弹出，并将其子节点按 右 左 的顺序压入S1；
      *
-     * @param root 数根节点
+     * @param root 根节点
      * @return 序列化的value字符串
      */
     private static String zigZagSerializedTreeNode(TreeNode root) {
@@ -187,9 +188,69 @@ public class SerializeTreeNode {
         return join.toString();
     }
 
+    /**
+     * 简单的序列化为字符串
+     * 不对树本身做改动
+     *
+     * @param root 树根
+     * @return value序列化后的字符串
+     */
+    public static String serialize(TreeNode root) {
+        StringJoiner joiner = new StringJoiner(" -> ");
+        if (Objects.isNull(root)) {
+            return joiner.toString();
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode next = queue.poll();
+            if (Objects.nonNull(next)) {
+                joiner.add(next.value.toString());
+                queue.add(next.left);
+                queue.add(next.right);
+            } else {
+                joiner.add("NONE");
+            }
+        }
+        return joiner.toString();
+    }
+
+    /**
+     * 反序列化，构造成二叉树结构
+     *
+     * @param serialized 序列化字符串
+     * @return 二叉树
+     */
+    public static TreeNode deserialize(String serialized) {
+        if (Objects.isNull(serialized) || serialized.isEmpty()) {
+            return null;
+        }
+        String[] nodes = serialized.split(" -> ");
+        TreeNode root = new TreeNode(Integer.parseInt(nodes[0]));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int index = 1;
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (!"NONE".equals(nodes[index])) {
+                node.left = new TreeNode(Integer.parseInt(nodes[index]));
+                queue.add(node.left);
+            }
+            index++;
+            if (!"NONE".equals(nodes[index])) {
+                node.right = new TreeNode(Integer.parseInt(nodes[index]));
+                queue.add(node.right);
+            }
+            index++;
+        }
+        return root;
+    }
+
 
     public static void main(String[] args) {
-
+        String serialize = testSerialize();
+        TreeNode treeNode = deserialize(serialize);
+        System.out.println(String.format("Tree:%s", Optional.ofNullable(treeNode).map(TreeNode::toString).orElse(null)));
         testSerializeTreeNode();
         testZigzagSerializeTreeNode();
         testZigzagSerializedTreeNode();
@@ -219,6 +280,25 @@ public class SerializeTreeNode {
         String treeNode = serializeTreeNode(root);
         String msg = String.format("Tree be serialized to \n%s", treeNode);
         System.out.println(msg);
+    }
+
+    private static String testSerialize() {
+        TreeNode root = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+
+        root.left = node2;
+        root.right = node3;
+        node3.left = node4;
+        node3.right = node5;
+
+        String treeNode = serialize(root);
+        String msg = String.format("Tree be serialized to \n%s", treeNode);
+        System.out.println(msg);
+
+        return treeNode;
     }
 
     private static void testZigzagSerializeTreeNode() {
