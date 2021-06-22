@@ -101,11 +101,11 @@ public class LongestPalindromicSubstring {
         }
         char[] chars = string.toCharArray();
         //动态规划开始循环
-        // 先枚举子串长度
-        for (int start = 2; start <= length; start++) {
+        // 先枚举子串长度len
+        for (int len = 2; len <= length; len++) {
             for (int index = 0; index < length; index++) {
                 // 由 start 和 index 可以确定右边界，即 j - index + 1 = start 得
-                int jndex = start + index - 1;
+                int jndex = len + index - 1;
 
                 if (jndex >= length) {
                     break;
@@ -130,9 +130,78 @@ public class LongestPalindromicSubstring {
         return string.substring(init, init + max);
     }
 
+    /**
+     * 方法二：中心扩展法<p>
+     * 枚举所有的「回文中心」并尝试「扩展」，直到无法扩展为止，此时的回文串长度即为此「回文中心」下的最长回文串长度。
+     * 对所有的长度求出最大值，即可得到最终的答案。
+     *
+     * @param string 字符串
+     * @return 最长回文子串
+     */
+    public static String longestPalindromeSubstring(String string) {
+        if (Objects.isNull(string) || string.isEmpty()) {
+            return "";
+        }
+        int start = 0;
+        int end = 0;
+        for (int index = 0; index < string.length(); index++) {
+            //长度1
+            int len1 = expandAroundCenter(string, index, index);
+            //长度2
+            int len2 = expandAroundCenter(string, index, index + 1);
+            int length = Math.max(len1, len2);
+            if (length > end - start) {
+                //重新定义开始坐标
+                start = index - (length - 1) / 2;
+                //这里+1 还是最后返回那里end+1；意义一样，substring是左闭右开。但是最后子串有区别
+                end = index + length / 2 + 1;
+            }
+        }
+
+        return string.substring(start, end);
+    }
+
+    /**
+     * 中心扩展，向左向右扩展
+     *
+     * @param str   字符串
+     * @param left  左边起步index
+     * @param right 右边起步index
+     * @return 长度
+     */
+    private static int expandAroundCenter(String str, int left, int right) {
+        while (left >= 0 && right < str.length() && str.charAt(left) == str.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+
+
     public static void main(String[] args) {
         String s = "babad";
         String palindrome = longestPalindrome(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+
+        palindrome = longestPalindromeSubstring(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+
+        s = "cbbd";
+        palindrome = longestPalindrome(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+        palindrome = longestPalindromeSubstring(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+
+        s = "ac";
+        palindrome = longestPalindrome(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+        palindrome = longestPalindromeSubstring(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+
+        s = "even";
+        palindrome = longestPalindrome(s);
+        System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
+        palindrome = longestPalindromeSubstring(s);
         System.out.println(String.format("%s has longest palindrome sub string: %s", s, palindrome));
 
 
