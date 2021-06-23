@@ -145,9 +145,9 @@ public class LongestPalindromicSubstring {
         int start = 0;
         int end = 0;
         for (int index = 0; index < string.length(); index++) {
-            //长度1
+            //长度=1
             int len1 = expandAroundCenter(string, index, index);
-            //长度2
+            //长度=2
             int len2 = expandAroundCenter(string, index, index + 1);
             int length = Math.max(len1, len2);
             if (length > end - start) {
