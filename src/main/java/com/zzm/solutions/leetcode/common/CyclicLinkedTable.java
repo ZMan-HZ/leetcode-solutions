@@ -32,8 +32,8 @@ public class CyclicLinkedTable {
     @Override
     protected CyclicLinkedTable clone() {
         CyclicLinkedTable table = new CyclicLinkedTable(this.value);
-        table.next = this.next;
-        table.pre = this.pre;
+        table.next = this.next.clone();
+        table.pre = this.pre.clone();
         return table;
     }
 

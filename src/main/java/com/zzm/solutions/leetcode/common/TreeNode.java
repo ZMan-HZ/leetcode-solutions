@@ -36,9 +36,9 @@ public class TreeNode {
     @Override
     public TreeNode clone() {
         TreeNode node = new TreeNode(this.value);
-        node.left = this.left;
-        node.right = this.right;
-        node.next = this.next;
+        node.left = this.left.clone();
+        node.right = this.right.clone();
+        node.next = this.next.clone();
         return node;
     }
 

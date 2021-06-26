@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * <b>链表</b>
+ * <b>单链表</b>
  *
  * @author Zhenzhen
  * @version v1.0.0
@@ -28,7 +28,7 @@ public class LinkedTable {
     @Override
     protected LinkedTable clone() {
         LinkedTable table = new LinkedTable(this.value);
-        table.next = this.next;
+        table.next = this.next.clone();
         return table;
     }
 

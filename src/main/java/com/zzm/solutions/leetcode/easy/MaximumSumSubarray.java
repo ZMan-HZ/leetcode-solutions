@@ -40,7 +40,7 @@ import java.util.Objects;
  * @version v1.0.0
  * @since 2021/6/23 星期三
  */
-public class MaximumSubarray {
+public class MaximumSumSubarray {
 
 
     /**
