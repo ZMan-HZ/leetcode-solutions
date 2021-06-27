@@ -68,7 +68,7 @@ public class SerializeTreeNode {
         while (!oddLayer.isEmpty() || !evenLayer.isEmpty()) {
             while (!oddLayer.isEmpty()) {
                 TreeNode tree = oddLayer.pop();
-                join.add(tree.value.toString());
+                join.add(tree.identity.toString());
                 //以“左右”的顺序入栈
                 if (Objects.nonNull(tree.left)) {
                     evenLayer.push(tree.left);
@@ -81,7 +81,7 @@ public class SerializeTreeNode {
             }
             while (!evenLayer.isEmpty()) {
                 TreeNode tree = evenLayer.pop();
-                join.add(tree.value.toString());
+                join.add(tree.identity.toString());
                 //以“右左”的顺序入栈
                 if (Objects.nonNull(tree.right)) {
                     oddLayer.push(tree.right);
@@ -126,7 +126,7 @@ public class SerializeTreeNode {
 
             while (!oddFloor.isEmpty()) {
                 TreeNode tree = oddFloor.pop();
-                join.add(tree.value.toString());
+                join.add(tree.identity.toString());
                 //以“左右”的顺序入栈
                 if (Objects.nonNull(tree.left)) {
                     evenFloor.push(tree.left);
@@ -139,7 +139,7 @@ public class SerializeTreeNode {
             }
             while (!evenFloor.isEmpty()) {
                 TreeNode tree = evenFloor.pop();
-                join.add(tree.value.toString());
+                join.add(tree.identity.toString());
                 //以“右左”的顺序入栈
                 if (Objects.nonNull(tree.right)) {
                     oddFloor.push(tree.right);
@@ -174,7 +174,7 @@ public class SerializeTreeNode {
         TreeNode cursor = root;
         while (!queue.isEmpty()) {
             TreeNode next = queue.poll();
-            join.add(next.value.toString());
+            join.add(next.identity.toString());
             if (Objects.nonNull(next.left)) {
                 queue.add(next.left);
             }
@@ -205,7 +205,7 @@ public class SerializeTreeNode {
         while (!queue.isEmpty()) {
             TreeNode next = queue.poll();
             if (Objects.nonNull(next)) {
-                joiner.add(next.value.toString());
+                joiner.add(next.identity.toString());
                 queue.add(next.left);
                 queue.add(next.right);
             } else {
@@ -251,13 +251,7 @@ public class SerializeTreeNode {
         String serialize = testSerialize();
         TreeNode treeNode = deserialize(serialize);
         System.out.println(String.format("Tree:%s", Optional.ofNullable(treeNode).map(TreeNode::toString).orElse(null)));
-        testSerializeTreeNode();
-        testZigzagSerializeTreeNode();
-        testZigzagSerializedTreeNode();
 
-    }
-
-    private static void testSerializeTreeNode() {
         TreeNode root = new TreeNode(1);
         TreeNode node2 = new TreeNode(2);
         TreeNode node3 = new TreeNode(3);
@@ -277,10 +271,24 @@ public class SerializeTreeNode {
         node5.left = node8;
         node5.right = node9;
 
-        String treeNode = serializeTreeNode(root);
-        String msg = String.format("Tree be serialized to \n%s", treeNode);
+        TreeNode clone1 = root.clone();
+        TreeNode clone2 = clone1.clone();
+
+        String tree = serializeTreeNode(root);
+        String msg = String.format("Tree be serialized to \n%s", tree);
         System.out.println(msg);
+
+        tree = zigZagSerializeTreeNode(clone1);
+        msg = String.format("Tree be zig zag serialize to \n%s", tree);
+        System.out.println(msg);
+
+        tree = zigZagSerializedTreeNode(clone2);
+        msg = String.format("Tree be zig zag serialized to \n%s", tree);
+        System.out.println(msg);
+
+
     }
+
 
     private static String testSerialize() {
         TreeNode root = new TreeNode(1);
@@ -299,56 +307,6 @@ public class SerializeTreeNode {
         System.out.println(msg);
 
         return treeNode;
-    }
-
-    private static void testZigzagSerializeTreeNode() {
-        TreeNode root = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        TreeNode node6 = new TreeNode(6);
-        TreeNode node7 = new TreeNode(7);
-        TreeNode node8 = new TreeNode(8);
-        TreeNode node9 = new TreeNode(9);
-
-        root.left = node2;
-        root.right = node3;
-        node2.left = node4;
-        node3.left = node5;
-        node3.right = node6;
-        node4.left = node7;
-        node5.left = node8;
-        node5.right = node9;
-
-        String treeNode = zigZagSerializeTreeNode(root);
-        String msg = String.format("Tree be serialized to \n%s", treeNode);
-        System.out.println(msg);
-    }
-
-    private static void testZigzagSerializedTreeNode() {
-        TreeNode root = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        TreeNode node6 = new TreeNode(6);
-        TreeNode node7 = new TreeNode(7);
-        TreeNode node8 = new TreeNode(8);
-        TreeNode node9 = new TreeNode(9);
-
-        root.left = node2;
-        root.right = node3;
-        node2.left = node4;
-        node3.left = node5;
-        node3.right = node6;
-        node4.left = node7;
-        node5.left = node8;
-        node5.right = node9;
-
-        String treeNode = zigZagSerializedTreeNode(root);
-        String msg = String.format("Tree be serialized to \n%s", treeNode);
-        System.out.println(msg);
     }
 
 

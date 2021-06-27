@@ -1,4 +1,4 @@
-package com.zzm.solutions.leetcode.medium.dynamicprogram;
+package com.zzm.solutions.leetcode.medium;
 
 import java.util.Objects;
 

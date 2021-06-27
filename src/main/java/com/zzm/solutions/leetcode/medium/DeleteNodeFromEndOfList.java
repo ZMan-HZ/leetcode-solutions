@@ -1,4 +1,4 @@
-package com.zzm.solutions.leetcode.medium.others;
+package com.zzm.solutions.leetcode.medium;
 
 import com.zzm.solutions.leetcode.common.LinkedTable;
 
@@ -58,8 +58,7 @@ public class DeleteNodeFromEndOfList {
         if (Objects.isNull(root)) {
             return null;
         }
-        LinkedTable node = new LinkedTable(0);
-        node.next = root;
+        LinkedTable node = new LinkedTable(0, root);
         // 声明两个指向头结点的节点
         LinkedTable current = node;
         //游标节点
@@ -83,13 +82,27 @@ public class DeleteNodeFromEndOfList {
     /**
      * 两次遍历
      *
-     * @param nth
-     * @param root
-     * @return
+     * @param root 根节点
+     * @param nth  倒数第N个
+     * @return 新链表
      */
     public static LinkedTable removeNthFromEnd(int nth, LinkedTable root) {
+        if (Objects.isNull(root)) {
+            return null;
+        }
+        int length = 0;
+        LinkedTable node = new LinkedTable(0, root);
+        while (Objects.nonNull(root)) {
+            length++;
+            root = root.next;
+        }
+        LinkedTable current = node;
+        for (int index = 1; index < length - nth + 1; index++) {
+            current = current.next;
+        }
+        current.next = current.next.next;
 
-        return null;
+        return node.next;
     }
 
     public static void main(String[] args) {
@@ -102,9 +115,16 @@ public class DeleteNodeFromEndOfList {
         left1.next = left2;
         left2.next = left3;
 
+        LinkedTable clone = root.clone();
+
         int nth = 1;
         LinkedTable table = removeNthFromEnd(root, nth);
 
         System.out.println(String.format("remove the %d from end of linked table got %s", nth, table));
+
+        table = removeNthFromEnd(nth, clone);
+
+        System.out.println(String.format("remove the %d from end of linked table got %s", nth, table));
+
     }
 }

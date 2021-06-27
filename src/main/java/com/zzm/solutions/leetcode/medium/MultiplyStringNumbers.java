@@ -1,4 +1,4 @@
-package com.zzm.solutions.leetcode.medium.others;
+package com.zzm.solutions.leetcode.medium;
 
 import com.zzm.solutions.common.StringConstants;
 import com.zzm.solutions.common.StringUtils;

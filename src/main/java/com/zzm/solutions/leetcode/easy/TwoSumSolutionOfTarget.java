@@ -67,11 +67,11 @@ public class TwoSumSolutionOfTarget {
     /**
      * 哈希表法
      *
-     * @param nums   数组
      * @param target 和
+     * @param nums   数组
      * @return 坐标
      */
-    public static int[] indexOfTwoValues(int[] nums, int target) {
+    public static int[] indexOfTwoNumbers(int target, int[] nums) {
         if (Objects.isNull(nums) || nums.length == 0) {
             return new int[0];
         }
@@ -91,14 +91,14 @@ public class TwoSumSolutionOfTarget {
         int target = 13;
         int[] index = indexOfTwoNumbers(nums, target);
         System.out.println(String.format("%d is sum of two element indexed by %s in array", target, Arrays.toString(index)));
-        int[] index3 = indexOfTwoValues(nums, target);
+        int[] index3 = indexOfTwoNumbers(target, nums);
         System.out.println(String.format("%d is sum of two element indexed by %s in array", target, Arrays.toString(index3)));
 
         int[] nums2 = {3, 3};
         target = 6;
         int[] index2 = indexOfTwoNumbers(nums2, target);
         System.out.println(String.format("%d is sum of two element indexed by %s in array", target, Arrays.toString(index2)));
-        int[] index4 = indexOfTwoValues(nums2, target);
+        int[] index4 = indexOfTwoNumbers(target, nums2);
         System.out.println(String.format("%d is sum of two element indexed by %s in array", target, Arrays.toString(index4)));
     }
 }

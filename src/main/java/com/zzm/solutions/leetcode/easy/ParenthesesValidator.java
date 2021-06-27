@@ -49,9 +49,9 @@ import java.util.*;
  * @version v1.0.0
  * @since 2021/6/19 星期六
  */
-public class ValidParentheses {
+public class ParenthesesValidator {
 
-    private ValidParentheses() {
+    private ParenthesesValidator() {
     }
 
     private static final Map<Character, Character> FINAL_MAP =

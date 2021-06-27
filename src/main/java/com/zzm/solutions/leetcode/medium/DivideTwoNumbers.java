@@ -1,4 +1,4 @@
-package com.zzm.solutions.leetcode.medium.others;
+package com.zzm.solutions.leetcode.medium;
 
 /**
  * <b>两数相除</b>

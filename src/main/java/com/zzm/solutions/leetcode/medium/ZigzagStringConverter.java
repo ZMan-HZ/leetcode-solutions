@@ -1,4 +1,4 @@
-package com.zzm.solutions.leetcode.medium.others;
+package com.zzm.solutions.leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.List;
