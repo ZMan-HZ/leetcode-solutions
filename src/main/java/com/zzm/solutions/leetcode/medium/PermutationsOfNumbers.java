@@ -1,6 +1,11 @@
 package com.zzm.solutions.leetcode.medium;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,20 +71,20 @@ public class PermutationsOfNumbers {
     }
 
     /**
-     * @param list    数组
-     * @param index   开始坐标
+     * @param list    供选数组
+     * @param start   开始坐标
      * @param counter 个数
      * @param results 结果
      */
-    private static void combine(List<Integer> list, int[] combined, int index, int counter, List<List<Integer>> results) {
+    private static void combine(List<Integer> list, int[] combined, int start, int counter, List<List<Integer>> results) {
 
         if (counter == 0) {
             results.add(Arrays.stream(combined).boxed().collect(Collectors.toList()));
             return;
         }
-        for (int start = index; start <= list.size() - counter; start++) {
-            combined[combined.length - counter] = list.get(start);
-            combine(list, combined, start + 1, counter - 1, results);
+        for (int index = start; index <= list.size() - counter; index++) {
+            combined[combined.length - counter] = list.get(index);
+            combine(list, combined, index + 1, counter - 1, results);
         }
     }
 
@@ -99,13 +104,53 @@ public class PermutationsOfNumbers {
 
     /**
      * 递归+回溯法：
+     * 1。对n个元素进行全排列，将第一个元素依次和之后的元素互换，将第一个元素确定下来
+     * 2。对之后的n-1个元素进行全排列，（可以看做是第一步的子问题）采用递归实现
+     * 3。将互换后的元素重新换回来，以防止数组元素的顺序被打乱（回溯思想）
      *
-     * @param nums
-     * @return
+     * @param nums 待排列数组
+     * @return 全排列
      */
     private static List<List<Integer>> permutations(int[] nums) {
+        if (Objects.isNull(nums) || nums.length == 0) {
+            return new ArrayList<>(0);
+        }
+        List<List<Integer>> results = new ArrayList<>();
+//        doPermutation(nums, 0, results);
+//        List<Integer> numbers = Arrays.asList(ArrayUtils.toObject(nums));
+        List<Integer> numbers = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        doPermutation(numbers, 0, results);
+        return results;
+    }
 
-        return null;
+    private static void doPermutation(int[] nums, int start, List<List<Integer>> results) {
+        //递归终止条件，起始位置等于最后一个了 ，说明这是一个排列了
+        if (start == nums.length) {
+            results.add(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+            return;
+        }
+        for (int index = start; index < nums.length; index++) {
+            //交换元素
+            int num = nums[start];
+            nums[start] = nums[index];
+            nums[index] = num;
+            doPermutation(nums, start + 1, results);
+            //再交换回去
+            nums[index] = nums[start];
+            nums[start] = num;
+        }
+    }
+
+    private static void doPermutation(List<Integer> numbers, int start, List<List<Integer>> results) {
+        if (start == numbers.size()) {
+            results.add(new ArrayList<>(numbers));
+            return;
+        }
+        for (int index = start; index < numbers.size(); index++) {
+            Collections.swap(numbers, start, index);
+            doPermutation(numbers, start + 1, results);
+            Collections.swap(numbers, index, start);
+        }
     }
 
     /**
@@ -137,7 +182,8 @@ public class PermutationsOfNumbers {
 
         int[] nums = {1, 2, 3, 4};
         List<List<Integer>> permutations = permutations(nums);
-        System.out.println(String.format("%s whole permutation are %s", Arrays.toString(nums), permutations));
+        System.out.println(String.format("%s whole permutation are %n %s",
+                Arrays.toString(nums), permutations.toString().replace("],", "],\n")));
 
         int length = 3;
         List<List<Integer>> combinations = combinations(nums, length);
