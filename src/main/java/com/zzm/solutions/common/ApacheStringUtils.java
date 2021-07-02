@@ -1,5 +1,7 @@
 package com.zzm.solutions.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 /**
@@ -7,9 +9,9 @@ import java.util.Objects;
  * @version v1.0.0
  * @since 2021/6/19 周六
  */
-public class StringUtils {
+public class ApacheStringUtils extends StringUtils {
 
-    private StringUtils() {
+    private ApacheStringUtils() {
     }
 
     /**
@@ -28,7 +30,10 @@ public class StringUtils {
         if (!number.startsWith(StringConstants.ZERO)) {
             return number;
         }
+
         //递归可以使用while迭代
         return trimStartZero(number.substring(1));
     }
+
+
 }

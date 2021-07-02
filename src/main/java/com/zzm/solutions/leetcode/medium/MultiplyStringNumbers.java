@@ -1,7 +1,7 @@
 package com.zzm.solutions.leetcode.medium;
 
 import com.zzm.solutions.common.StringConstants;
-import com.zzm.solutions.common.StringUtils;
+import com.zzm.solutions.common.ApacheStringUtils;
 import com.zzm.solutions.leetcode.easy.SumStringNumbers;
 
 
@@ -60,8 +60,8 @@ public class MultiplyStringNumbers {
      * @return 积
      */
     public static String enhancedMultiply(String number1, String number2) {
-        number1 = StringUtils.trimStartZero(number1);
-        number2 = StringUtils.trimStartZero(number2);
+        number1 = ApacheStringUtils.trimStartZero(number1);
+        number2 = ApacheStringUtils.trimStartZero(number2);
         if (StringConstants.ZERO.equals(number1) || StringConstants.ZERO.equals(number2)) {
             return StringConstants.ZERO;
         }
@@ -82,7 +82,7 @@ public class MultiplyStringNumbers {
         for (int each : tmp) {
             sb.append(each);
         }
-        return StringUtils.trimStartZero(sb.toString());
+        return ApacheStringUtils.trimStartZero(sb.toString());
     }
 
     /**
@@ -105,8 +105,8 @@ public class MultiplyStringNumbers {
      * @return 积
      */
     public static String normalMultiply(String number1, String number2) {
-        number1 = StringUtils.trimStartZero(number1);
-        number2 = StringUtils.trimStartZero(number2);
+        number1 = ApacheStringUtils.trimStartZero(number1);
+        number2 = ApacheStringUtils.trimStartZero(number2);
         if (StringConstants.ZERO.equals(number1) || StringConstants.ZERO.equals(number2)) {
             return StringConstants.ZERO;
         }

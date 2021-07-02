@@ -1,7 +1,7 @@
 package com.zzm.solutions.leetcode.easy;
 
 import com.zzm.solutions.common.StringConstants;
-import com.zzm.solutions.common.StringUtils;
+import com.zzm.solutions.common.ApacheStringUtils;
 
 /**
  * <b>数字字符串相加</b>
@@ -45,8 +45,8 @@ public class SumStringNumbers {
 
 
     private static String stringSum(String number1, String number2, int weight) {
-        number1 = StringUtils.trimStartZero(number1);
-        number2 = StringUtils.trimStartZero(number2);
+        number1 = ApacheStringUtils.trimStartZero(number1);
+        number2 = ApacheStringUtils.trimStartZero(number2);
         if (StringConstants.ZERO.equals(number1)) {
             return number2;
         }
