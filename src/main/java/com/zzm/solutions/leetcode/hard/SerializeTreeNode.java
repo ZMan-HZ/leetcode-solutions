@@ -122,8 +122,7 @@ public class SerializeTreeNode {
 
         TreeNode cursor = root;
 
-        while (!oddFloor.isEmpty() || !evenFloor.isEmpty()) {
-
+        do {
             while (!oddFloor.isEmpty()) {
                 TreeNode tree = oddFloor.pop();
                 join.add(tree.identity.toString());
@@ -150,7 +149,7 @@ public class SerializeTreeNode {
                 cursor.next = tree;
                 cursor = cursor.next;
             }
-        }
+        } while (!oddFloor.isEmpty());
 
         return join.toString();
     }
@@ -304,6 +303,10 @@ public class SerializeTreeNode {
 
         String treeNode = serialize(root);
         String msg = String.format("Tree be serialized to \n%s", treeNode);
+        System.out.println(msg);
+
+        String zigZagSerializeTreeNode = zigZagSerializeTreeNode(root.clone());
+        msg = String.format("Tree be zig zag serialized to \n%s", zigZagSerializeTreeNode);
         System.out.println(msg);
 
         return treeNode;
