@@ -46,7 +46,7 @@ public class WordSearch {
 
     //分别对应上、右、下、左的坐标
     //即向上查找，x 轴需要不变，y轴往前面一个元素，即y-1
-    public static final int[][] direction = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+    public static final int[][] DIRECTION = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
 
     /**
      * 思想：
@@ -92,7 +92,7 @@ public class WordSearch {
         }
         if (boards[x][y] == charArray[start]) {
             visited[x][y] = true;
-            for (int[] dir : direction) {
+            for (int[] dir : DIRECTION) {
                 int nextX = dir[0] + x;
                 int nextY = dir[1] + y;
                 if (in(nextX, nextY, boards) && !visited[nextX][nextY]) {
