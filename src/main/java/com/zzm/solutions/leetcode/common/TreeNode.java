@@ -66,12 +66,11 @@ public class TreeNode {
                 .toHashCode();
     }
 
-    @Override
-    public TreeNode clone() {
+    public TreeNode copy() {
         TreeNode node = new TreeNode(this.identity);
-        node.left = Optional.ofNullable(this.left).map(TreeNode::clone).orElse(null);
-        node.right = Optional.ofNullable(this.right).map(TreeNode::clone).orElse(null);
-        node.next = Optional.ofNullable(this.next).map(TreeNode::clone).orElse(null);
+        node.left = Optional.ofNullable(this.left).map(TreeNode::copy).orElse(null);
+        node.right = Optional.ofNullable(this.right).map(TreeNode::copy).orElse(null);
+        node.next = Optional.ofNullable(this.next).map(TreeNode::copy).orElse(null);
         return node;
     }
 

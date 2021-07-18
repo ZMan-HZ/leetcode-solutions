@@ -60,11 +60,10 @@ public class CyclicLinkedTable {
                 .toHashCode();
     }
 
-    @Override
-    public CyclicLinkedTable clone() {
+    public CyclicLinkedTable copy() {
         CyclicLinkedTable table = new CyclicLinkedTable(this.identity);
-        table.successor = Optional.ofNullable(this.successor).map(CyclicLinkedTable::clone).orElse(null);
-        table.predecessor = Optional.ofNullable(this.predecessor).map(CyclicLinkedTable::clone).orElse(null);
+        table.successor = Optional.ofNullable(this.successor).map(CyclicLinkedTable::copy).orElse(null);
+        table.predecessor = Optional.ofNullable(this.predecessor).map(CyclicLinkedTable::copy).orElse(null);
         return table;
     }
 

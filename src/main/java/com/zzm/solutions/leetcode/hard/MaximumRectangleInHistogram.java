@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Stack;
 
 /**
- * <b>柱状图中最大的矩形</b>
+ * <b>柱状图中 最大的矩形</b>
  * <p>题目：</p>
  * <blockquote>
  * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
@@ -22,7 +22,7 @@ import java.util.Stack;
  * @version v1.0.0
  * @since 2021/7/15 星期四
  */
-public class LargestRectangleInHistogram {
+public class MaximumRectangleInHistogram {
 
     /**
      * 思路：

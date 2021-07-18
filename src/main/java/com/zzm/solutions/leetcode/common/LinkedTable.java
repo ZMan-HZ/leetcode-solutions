@@ -34,6 +34,7 @@ public class LinkedTable {
         this.next = next;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,10 +61,9 @@ public class LinkedTable {
                 .toHashCode();
     }
 
-    @Override
-    public LinkedTable clone() {
+    public LinkedTable copy() {
         LinkedTable table = new LinkedTable(this.identity);
-        table.next = Optional.ofNullable(this.next).map(LinkedTable::clone).orElse(null);
+        table.next = Optional.ofNullable(this.next).map(LinkedTable::copy).orElse(null);
         return table;
     }
 

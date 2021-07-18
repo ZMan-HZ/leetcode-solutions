@@ -115,7 +115,7 @@ public class DeleteNodeFromEndOfList {
         left1.next = left2;
         left2.next = left3;
 
-        LinkedTable clone = root.clone();
+        LinkedTable clone = root.copy();
 
         int nth = 1;
         LinkedTable table = removeNthFromEnd(root, nth);

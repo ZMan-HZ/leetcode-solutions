@@ -270,8 +270,8 @@ public class SerializeTreeNode {
         node5.left = node8;
         node5.right = node9;
 
-        TreeNode clone1 = root.clone();
-        TreeNode clone2 = clone1.clone();
+        TreeNode clone1 = root.copy();
+        TreeNode clone2 = clone1.copy();
 
         String tree = serializeTreeNode(root);
         String msg = String.format("Tree be serialized to \n%s", tree);
@@ -305,7 +305,7 @@ public class SerializeTreeNode {
         String msg = String.format("Tree be serialized to \n%s", treeNode);
         System.out.println(msg);
 
-        String zigZagSerializeTreeNode = zigZagSerializeTreeNode(root.clone());
+        String zigZagSerializeTreeNode = zigZagSerializeTreeNode(root.copy());
         msg = String.format("Tree be zig zag serialized to \n%s", zigZagSerializeTreeNode);
         System.out.println(msg);
 

@@ -34,10 +34,10 @@ import java.util.Objects;
  * @version v1.0.0
  * @since 2021/6/26 星期六
  */
-public class TwoSumSolutionOfTarget {
+public class SumSolutionOfTargetWithTwoNumbers {
 
 
-    private TwoSumSolutionOfTarget() {
+    private SumSolutionOfTargetWithTwoNumbers() {
     }
 
     /**

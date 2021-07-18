@@ -118,7 +118,7 @@ public class MergeMultiSortedLinkedTables {
         LinkedTable seven = new LinkedTable(2, eight);
 
         LinkedTable[] lists = {one, four, seven};
-        LinkedTable[] tables = {one.clone(), four.clone(), seven.clone()};
+        LinkedTable[] tables = {one.copy(), four.copy(), seven.copy()};
         LinkedTable table = buildLinkedTableFrom(lists);
         System.out.println(String.format("%s merged", table));
 
