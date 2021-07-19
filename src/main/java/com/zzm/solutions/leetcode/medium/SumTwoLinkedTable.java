@@ -57,8 +57,8 @@ public class SumTwoLinkedTable {
         LinkedTable current = header;
         int carry = 0;
         while (Objects.nonNull(left) || Objects.nonNull(right)) {
-            int v1 = Optional.ofNullable(left).map(node -> node.identity).orElse(0);
-            int v2 = Optional.ofNullable(right).map(node -> node.identity).orElse(0);
+            int v1 = Optional.ofNullable(left).map(node -> node.data).orElse(0);
+            int v2 = Optional.ofNullable(right).map(node -> node.data).orElse(0);
             int sum = v1 + v2 + carry;
             carry = sum / 10;
             current.next = new LinkedTable(sum % 10);

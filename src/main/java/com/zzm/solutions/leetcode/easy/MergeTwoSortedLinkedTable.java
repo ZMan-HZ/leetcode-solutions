@@ -68,7 +68,7 @@ public class MergeTwoSortedLinkedTable {
                 current.next = left;
                 return header.next;
             }
-            if (left.identity < right.identity) {
+            if (left.data < right.data) {
                 current.next = left;
                 left = left.next;
             } else {
@@ -98,7 +98,7 @@ public class MergeTwoSortedLinkedTable {
         LinkedTable current = header;
 
         while (Objects.nonNull(left) && Objects.nonNull(right)) {
-            if (left.identity < right.identity) {
+            if (left.data < right.data) {
                 current.next = left;
                 left = left.next;
             } else {

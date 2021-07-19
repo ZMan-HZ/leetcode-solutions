@@ -18,7 +18,7 @@ public class CyclicLinkedTable {
     /**
      * 数据域
      */
-    public final Integer identity;
+    public final Integer data;
     /**
      * 指针域
      */
@@ -28,8 +28,8 @@ public class CyclicLinkedTable {
      */
     public CyclicLinkedTable successor;
 
-    public CyclicLinkedTable(Integer identity) {
-        this.identity = identity;
+    public CyclicLinkedTable(Integer data) {
+        this.data = data;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CyclicLinkedTable {
         CyclicLinkedTable table = (CyclicLinkedTable) o;
 
         return new EqualsBuilder()
-                .append(identity, table.identity)
+                .append(data, table.data)
                 .append(predecessor, table.predecessor)
                 .append(successor, table.successor)
                 .isEquals();
@@ -54,14 +54,14 @@ public class CyclicLinkedTable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(identity)
+                .append(data)
                 .append(predecessor)
                 .append(successor)
                 .toHashCode();
     }
 
     public CyclicLinkedTable copy() {
-        CyclicLinkedTable table = new CyclicLinkedTable(this.identity);
+        CyclicLinkedTable table = new CyclicLinkedTable(this.data);
         table.successor = Optional.ofNullable(this.successor).map(CyclicLinkedTable::copy).orElse(null);
         table.predecessor = Optional.ofNullable(this.predecessor).map(CyclicLinkedTable::copy).orElse(null);
         return table;

@@ -14,26 +14,32 @@ import java.util.Optional;
  * @version v1.0.0
  * @since 2021/6/20 星期日
  */
-public class TreeNode {
+public class BinaryTreeNode {
     /**
      * 数据域
      */
-    public final Integer identity;
+    public final Integer data;
     /**
      * 指针域
      */
-    public TreeNode left;
+    public BinaryTreeNode left;
     /**
      * 指针域
      */
-    public TreeNode right;
+    public BinaryTreeNode right;
     /**
      * 指针域
      */
-    public TreeNode next;
+    public BinaryTreeNode next;
 
-    public TreeNode(Integer identity) {
-        this.identity = identity;
+    public BinaryTreeNode(Integer data) {
+        this.data = data;
+    }
+
+    public BinaryTreeNode(Integer data, BinaryTreeNode left, BinaryTreeNode right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
     }
 
     @Override
@@ -46,10 +52,10 @@ public class TreeNode {
             return false;
         }
 
-        TreeNode treeNode = (TreeNode) o;
+        BinaryTreeNode treeNode = (BinaryTreeNode) o;
 
         return new EqualsBuilder()
-                .append(identity, treeNode.identity)
+                .append(data, treeNode.data)
                 .append(left, treeNode.left)
                 .append(right, treeNode.right)
                 .append(next, treeNode.next)
@@ -59,18 +65,18 @@ public class TreeNode {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(identity)
+                .append(data)
                 .append(left)
                 .append(right)
                 .append(next)
                 .toHashCode();
     }
 
-    public TreeNode copy() {
-        TreeNode node = new TreeNode(this.identity);
-        node.left = Optional.ofNullable(this.left).map(TreeNode::copy).orElse(null);
-        node.right = Optional.ofNullable(this.right).map(TreeNode::copy).orElse(null);
-        node.next = Optional.ofNullable(this.next).map(TreeNode::copy).orElse(null);
+    public BinaryTreeNode copy() {
+        BinaryTreeNode node = new BinaryTreeNode(this.data);
+        node.left = Optional.ofNullable(this.left).map(BinaryTreeNode::copy).orElse(null);
+        node.right = Optional.ofNullable(this.right).map(BinaryTreeNode::copy).orElse(null);
+        node.next = Optional.ofNullable(this.next).map(BinaryTreeNode::copy).orElse(null);
         return node;
     }
 

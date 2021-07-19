@@ -1,6 +1,6 @@
 package com.zzm.solutions.leetcode.hard;
 
-import com.zzm.solutions.leetcode.common.TreeNode;
+import com.zzm.solutions.leetcode.common.BinaryTreeNode;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -52,23 +52,23 @@ public class SerializeTreeNode {
      * @param root 根节点
      * @return 序列化的value字符串
      */
-    public static String zigZagSerializeTreeNode(TreeNode root) {
+    public static String zigZagSerializeTreeNode(BinaryTreeNode root) {
         if (Objects.isNull(root)) {
             return "";
         }
         StringJoiner join = new StringJoiner(" -> ");
 
-        Stack<TreeNode> oddLayer = new Stack<>();
-        Stack<TreeNode> evenLayer = new Stack<>();
+        Stack<BinaryTreeNode> oddLayer = new Stack<>();
+        Stack<BinaryTreeNode> evenLayer = new Stack<>();
 
         oddLayer.push(root);
 
-        TreeNode cursor = root;
+        BinaryTreeNode cursor = root;
 
         while (!oddLayer.isEmpty() || !evenLayer.isEmpty()) {
             while (!oddLayer.isEmpty()) {
-                TreeNode tree = oddLayer.pop();
-                join.add(tree.identity.toString());
+                BinaryTreeNode tree = oddLayer.pop();
+                join.add(tree.data.toString());
                 //以“左右”的顺序入栈
                 if (Objects.nonNull(tree.left)) {
                     evenLayer.push(tree.left);
@@ -80,8 +80,8 @@ public class SerializeTreeNode {
                 cursor = cursor.next;
             }
             while (!evenLayer.isEmpty()) {
-                TreeNode tree = evenLayer.pop();
-                join.add(tree.identity.toString());
+                BinaryTreeNode tree = evenLayer.pop();
+                join.add(tree.data.toString());
                 //以“右左”的顺序入栈
                 if (Objects.nonNull(tree.right)) {
                     oddLayer.push(tree.right);
@@ -109,23 +109,23 @@ public class SerializeTreeNode {
      * @param root 根节点
      * @return 序列化的value字符串
      */
-    private static String zigZagSerializedTreeNode(TreeNode root) {
+    private static String zigZagSerializedTreeNode(BinaryTreeNode root) {
         if (Objects.isNull(root)) {
             return "";
         }
         StringJoiner join = new StringJoiner(" -> ");
 
-        Deque<TreeNode> oddFloor = new LinkedList<>();
-        Deque<TreeNode> evenFloor = new LinkedList<>();
+        Deque<BinaryTreeNode> oddFloor = new LinkedList<>();
+        Deque<BinaryTreeNode> evenFloor = new LinkedList<>();
 
         oddFloor.addFirst(root);
 
-        TreeNode cursor = root;
+        BinaryTreeNode cursor = root;
 
         do {
             while (!oddFloor.isEmpty()) {
-                TreeNode tree = oddFloor.pop();
-                join.add(tree.identity.toString());
+                BinaryTreeNode tree = oddFloor.pop();
+                join.add(tree.data.toString());
                 //以“左右”的顺序入栈
                 if (Objects.nonNull(tree.left)) {
                     evenFloor.push(tree.left);
@@ -137,8 +137,8 @@ public class SerializeTreeNode {
                 cursor = cursor.next;
             }
             while (!evenFloor.isEmpty()) {
-                TreeNode tree = evenFloor.pop();
-                join.add(tree.identity.toString());
+                BinaryTreeNode tree = evenFloor.pop();
+                join.add(tree.data.toString());
                 //以“右左”的顺序入栈
                 if (Objects.nonNull(tree.right)) {
                     oddFloor.push(tree.right);
@@ -163,17 +163,17 @@ public class SerializeTreeNode {
      * @param root 数根节点
      * @return 序列化的value字符串
      */
-    public static String serializeTreeNode(TreeNode root) {
+    public static String serializeTreeNode(BinaryTreeNode root) {
         if (Objects.isNull(root)) {
             return "";
         }
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
         StringJoiner join = new StringJoiner(" -> ");
         queue.add(root);
-        TreeNode cursor = root;
+        BinaryTreeNode cursor = root;
         while (!queue.isEmpty()) {
-            TreeNode next = queue.poll();
-            join.add(next.identity.toString());
+            BinaryTreeNode next = queue.poll();
+            join.add(next.data.toString());
             if (Objects.nonNull(next.left)) {
                 queue.add(next.left);
             }
@@ -194,17 +194,17 @@ public class SerializeTreeNode {
      * @param root 树根
      * @return value序列化后的字符串
      */
-    public static String serialize(TreeNode root) {
+    public static String serialize(BinaryTreeNode root) {
         StringJoiner joiner = new StringJoiner(" -> ");
         if (Objects.isNull(root)) {
             return joiner.toString();
         }
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            TreeNode next = queue.poll();
+            BinaryTreeNode next = queue.poll();
             if (Objects.nonNull(next)) {
-                joiner.add(next.identity.toString());
+                joiner.add(next.data.toString());
                 queue.add(next.left);
                 queue.add(next.right);
             } else {
@@ -220,24 +220,24 @@ public class SerializeTreeNode {
      * @param serialized 序列化字符串
      * @return 二叉树
      */
-    public static TreeNode deserialize(String serialized) {
+    public static BinaryTreeNode deserialize(String serialized) {
         if (Objects.isNull(serialized) || serialized.isEmpty()) {
             return null;
         }
         String[] nodes = serialized.split(" -> ");
-        TreeNode root = new TreeNode(Integer.parseInt(nodes[0]));
-        Queue<TreeNode> queue = new LinkedList<>();
+        BinaryTreeNode root = new BinaryTreeNode(Integer.parseInt(nodes[0]));
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
         queue.add(root);
         int index = 1;
         while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+            BinaryTreeNode node = queue.poll();
             if (!"NONE".equals(nodes[index])) {
-                node.left = new TreeNode(Integer.parseInt(nodes[index]));
+                node.left = new BinaryTreeNode(Integer.parseInt(nodes[index]));
                 queue.add(node.left);
             }
             index++;
             if (!"NONE".equals(nodes[index])) {
-                node.right = new TreeNode(Integer.parseInt(nodes[index]));
+                node.right = new BinaryTreeNode(Integer.parseInt(nodes[index]));
                 queue.add(node.right);
             }
             index++;
@@ -248,18 +248,18 @@ public class SerializeTreeNode {
 
     public static void main(String[] args) {
         String serialize = testSerialize();
-        TreeNode treeNode = deserialize(serialize);
-        System.out.println(String.format("Tree:%s", Optional.ofNullable(treeNode).map(TreeNode::toString).orElse(null)));
+        BinaryTreeNode treeNode = deserialize(serialize);
+        System.out.println(String.format("Tree:%s", Optional.ofNullable(treeNode).map(BinaryTreeNode::toString).orElse(null)));
 
-        TreeNode root = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        TreeNode node6 = new TreeNode(6);
-        TreeNode node7 = new TreeNode(7);
-        TreeNode node8 = new TreeNode(8);
-        TreeNode node9 = new TreeNode(9);
+        BinaryTreeNode root = new BinaryTreeNode(1);
+        BinaryTreeNode node2 = new BinaryTreeNode(2);
+        BinaryTreeNode node3 = new BinaryTreeNode(3);
+        BinaryTreeNode node4 = new BinaryTreeNode(4);
+        BinaryTreeNode node5 = new BinaryTreeNode(5);
+        BinaryTreeNode node6 = new BinaryTreeNode(6);
+        BinaryTreeNode node7 = new BinaryTreeNode(7);
+        BinaryTreeNode node8 = new BinaryTreeNode(8);
+        BinaryTreeNode node9 = new BinaryTreeNode(9);
 
         root.left = node2;
         root.right = node3;
@@ -270,8 +270,8 @@ public class SerializeTreeNode {
         node5.left = node8;
         node5.right = node9;
 
-        TreeNode clone1 = root.copy();
-        TreeNode clone2 = clone1.copy();
+        BinaryTreeNode clone1 = root.copy();
+        BinaryTreeNode clone2 = clone1.copy();
 
         String tree = serializeTreeNode(root);
         String msg = String.format("Tree be serialized to \n%s", tree);
@@ -290,11 +290,11 @@ public class SerializeTreeNode {
 
 
     private static String testSerialize() {
-        TreeNode root = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
+        BinaryTreeNode root = new BinaryTreeNode(1);
+        BinaryTreeNode node2 = new BinaryTreeNode(2);
+        BinaryTreeNode node3 = new BinaryTreeNode(3);
+        BinaryTreeNode node4 = new BinaryTreeNode(4);
+        BinaryTreeNode node5 = new BinaryTreeNode(5);
 
         root.left = node2;
         root.right = node3;

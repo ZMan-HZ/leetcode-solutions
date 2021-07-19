@@ -19,18 +19,18 @@ public class LinkedTable {
     /**
      * 数据域
      */
-    public final Integer identity;
+    public final Integer data;
     /**
      * 指针域
      */
     public LinkedTable next;
 
-    public LinkedTable(Integer identity) {
-        this.identity = identity;
+    public LinkedTable(Integer data) {
+        this.data = data;
     }
 
-    public LinkedTable(Integer identity, LinkedTable next) {
-        this.identity = identity;
+    public LinkedTable(Integer data, LinkedTable next) {
+        this.data = data;
         this.next = next;
     }
 
@@ -48,7 +48,7 @@ public class LinkedTable {
         LinkedTable table = (LinkedTable) o;
 
         return new EqualsBuilder()
-                .append(identity, table.identity)
+                .append(data, table.data)
                 .append(next, table.next)
                 .isEquals();
     }
@@ -56,13 +56,13 @@ public class LinkedTable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(identity)
+                .append(data)
                 .append(next)
                 .toHashCode();
     }
 
     public LinkedTable copy() {
-        LinkedTable table = new LinkedTable(this.identity);
+        LinkedTable table = new LinkedTable(this.data);
         table.next = Optional.ofNullable(this.next).map(LinkedTable::copy).orElse(null);
         return table;
     }
