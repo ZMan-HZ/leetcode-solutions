@@ -12,10 +12,10 @@ import java.util.Stack;
  * <p>
  * 示例 1：
  * 输入：matrix = [
- * ["1","0","1","0","0"],
- * ["1","0","1","1","1"],
- * ["1","1","1","1","1"],
- * ["1","0","0","1","0"]]
+ * ['1','0','1','0','0'],
+ * ['1','0','1','1','1'],
+ * ['1','1','1','1','1'],
+ * ['1','0','0','1','0']]
  * 输出：6
  * 解释：最大矩形如上所示。 <p>
  * 示例 2：
@@ -23,13 +23,13 @@ import java.util.Stack;
  * 输出：0
  * <p>
  * 示例 3：
- * 输入：matrix = [["0"]]
+ * 输入：matrix = [['0']]
  * 输出：0 <p>
  * 示例 4：
- * 输入：matrix = [["1"]]
+ * 输入：matrix = [['1']]
  * 输出：1<p>
  * 示例 5：
- * 输入：matrix = [["0","0"]]
+ * 输入：matrix = [['0','0']]
  * 输出：0 <p>
  * <p>
  * 提示：<p>
@@ -60,14 +60,23 @@ public class MaximalRectangle {
                 || matrix[0].length == 0) {
             return 0;
         }
-
-        for (int index = 0; index < matrix.length; index++) {
-
-
+        int[] heights = new int[matrix[0].length];
+        int max = 0;
+        for (char[] chars : matrix) {
+            for (int col = 0; col < chars.length; col++) {
+                int height = chars[col] - '0';
+                if (height == 1) {
+                    heights[col] += height;
+                } else {
+                    heights[col] = 0;
+                }
+            }
+            //以当前行为底（X轴）的柱形围成的最大矩形
+            int maximum = maximum(heights);
+            max = Math.max(max, maximum);
         }
 
-
-        return 0;
+        return max;
     }
 
     /**
@@ -84,7 +93,8 @@ public class MaximalRectangle {
         System.arraycopy(heights, 0, temp, 1, length);
         for (int index = 0; index < temp.length; index++) {
             int current = temp[index];
-            while (!stack.isEmpty() && heights[stack.peek()] > current) {
+            //当前height 小于栈顶的元素指向的高度
+            while (!stack.isEmpty() && temp[stack.peek()] > current) {
                 int peek = stack.pop();
                 int left = stack.peek();
                 max = Math.max(max, (index - left - 1) * temp[peek]);
@@ -98,6 +108,13 @@ public class MaximalRectangle {
 
 
     public static void main(String[] args) {
+        char[][] matrix =
+                {{'1', '0', '1', '0', '0'},
+                {'1', '0', '1', '1', '1'},
+                {'1', '1', '1', '1', '1'},
+                {'1', '0', '0', '1', '0'}};
+        int max = max(matrix);
+        System.out.println("max = " + max);
 
     }
 }

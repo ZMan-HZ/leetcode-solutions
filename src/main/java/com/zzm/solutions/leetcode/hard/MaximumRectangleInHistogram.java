@@ -88,10 +88,11 @@ public class MaximumRectangleInHistogram {
         System.arraycopy(heights, 0, temp, 1, length);
         for (int index = 0; index < temp.length; index++) {
             int current = temp[index];
+            //当前height 小于栈顶的元素指向的高度
             while (!stack.isEmpty() && temp[stack.peek()] > current) {
                 int peek = stack.pop();
-                int left = stack.peek();
-                max = Math.max(max, (index - left - 1) * temp[peek]);
+                int pre = stack.peek();
+                max = Math.max(max, (index - pre - 1) * temp[peek]);
             }
             stack.push(index);
         }
