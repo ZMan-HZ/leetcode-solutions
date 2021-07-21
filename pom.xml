@@ -30,6 +30,11 @@
       <artifactId>guava</artifactId>
       <version>30.1.1-jre</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.4</version>
+    </dependency>
 
 
     <dependency>
