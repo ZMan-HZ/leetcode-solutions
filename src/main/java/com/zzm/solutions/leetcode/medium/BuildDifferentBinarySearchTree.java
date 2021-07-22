@@ -49,7 +49,7 @@ package com.zzm.solutions.leetcode.medium;
  * @version v1.0.0
  * @since 2021/7/20 星期二
  */
-public class BuildUniqueBinarySearchTree {
+public class BuildDifferentBinarySearchTree {
 
 
     /**

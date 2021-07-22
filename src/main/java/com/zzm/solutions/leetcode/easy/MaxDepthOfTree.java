@@ -1,20 +1,19 @@
-package com.zzm.solutions.leetcode.medium;
+package com.zzm.solutions.leetcode.easy;
 
 import com.zzm.solutions.leetcode.common.BinaryTreeNode;
-import com.zzm.solutions.leetcode.hard.SerializeTreeNode;
-import org.apache.commons.collections4.CollectionUtils;
+import com.zzm.solutions.leetcode.medium.TreeLevelOrderTraver;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 
 /**
- * <b>二叉树的层序遍历</b>
+ * <b>二叉树的最大深度</b>
  * <p>题目：</p>
  * <blockquote>
- * 给一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
+ * 给定一个二叉树，找出其最大深度。
+ * 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+ * 说明: 叶子节点是指没有子节点的节点。
  * </blockquote>
  * <p>
  * 示例 1：
@@ -24,51 +23,47 @@ import java.util.Queue;
  * <pre>   9   20   </pre>
  * <pre>      / \ </pre>
  * <pre>     15  7</pre>
- * 输出: [
- * [3],
- * [9,20],
- * [15,7]]<p>
+ * 输出: 3 <p>
  *
  * @author Zhenzhen
  * @version v1.0.0
- * @since 2021/7/21 星期三
+ * @since 2021/7/22 星期四
  */
-public class TreeLevelOrderTraver {
+public class MaxDepthOfTree {
 
 
     /**
-     * 思路：
-     * 极其类似 {@link SerializeTreeNode} 中的序列化
-     *
+     * 广度优先搜索
+     * 极其类似 二叉树的层级遍历
+     * {@link TreeLevelOrderTraver#levelTraver(com.zzm.solutions.leetcode.common.BinaryTreeNode)}
      * @param root
      * @return
      */
-    public static List<List<Integer>> levelTraver(BinaryTreeNode root) {
-        List<List<Integer>> results = new ArrayList<>();
+    public static int maxDepth(BinaryTreeNode root) {
+        int max = 0;
         if (Objects.isNull(root)) {
-            return results;
+            return max;
         }
         Queue<BinaryTreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            List<Integer> ans = new ArrayList<>();
             int size = queue.size();
             for (int index = 0; index < size; index++) {
                 BinaryTreeNode node = queue.poll();
                 if (Objects.nonNull(node)) {
-                    ans.add(node.data);
-                    queue.add(node.left);
-                    queue.add(node.right);
+                    if (Objects.nonNull(node.left)) {
+                        queue.add(node.left);
+                    }
+                    if (Objects.nonNull(node.right)) {
+                        queue.add(node.right);
+                    }
                 }
             }
-            if (CollectionUtils.isNotEmpty(ans)) {
-                results.add(ans);
-            }
+            max++;
         }
 
-        return results;
+        return max;
     }
-
 
     public static void main(String[] args) {
         BinaryTreeNode left3 = new BinaryTreeNode(9);
@@ -79,7 +74,7 @@ public class TreeLevelOrderTraver {
 
         BinaryTreeNode root = new BinaryTreeNode(3, left3, right2);
 
-        List<List<Integer>> lists = levelTraver(root);
-        System.out.println("lists = " + lists);
+        int depth = maxDepth(root);
+        System.out.println("depth = " + depth);
     }
 }

@@ -34,7 +34,7 @@ import java.util.Queue;
  * @version v1.0.0
  * @since 2021/7/21 星期三
  */
-public class SymmetricMirrorTree {
+public class MirrorSymmetricTree {
 
     /**
      * 方法1： 递归
