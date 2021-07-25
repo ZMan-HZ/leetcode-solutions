@@ -37,7 +37,7 @@ import java.util.Objects;
  */
 public class MaxPathSumOfTree {
 
-    private MaxPathSumOfTree() {
+    public MaxPathSumOfTree() {
     }
 
     /**
