@@ -1,7 +1,5 @@
 package com.zzm.solutions.leetcode.common;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -34,32 +32,6 @@ public class LinkedTable {
         this.next = next;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        LinkedTable table = (LinkedTable) o;
-
-        return new EqualsBuilder()
-                .append(data, table.data)
-                .append(next, table.next)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(data)
-                .append(next)
-                .toHashCode();
-    }
 
     public LinkedTable copy() {
         LinkedTable table = new LinkedTable(this.data);

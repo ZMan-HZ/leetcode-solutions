@@ -32,6 +32,7 @@ public class ThreadPrinter {
                             this.notifyAll();
                             System.out.println(Thread.currentThread().getName() + "\t->\t" + counter.getAndIncrement());
                             this.wait();
+                            System.out.println(Thread.currentThread().getName() + " after wait");
                         } catch (InterruptedException e) {
                             Thread.interrupted();
                         }
