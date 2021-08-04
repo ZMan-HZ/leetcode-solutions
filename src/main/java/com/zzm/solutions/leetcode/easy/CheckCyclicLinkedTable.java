@@ -39,7 +39,7 @@ import java.util.Set;
  * @version v1.0.0
  * @since 2021/7/27 星期二
  */
-public class CheckCycleLinkedTable {
+public class CheckCyclicLinkedTable {
 
 
     /**

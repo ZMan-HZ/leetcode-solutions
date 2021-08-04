@@ -47,4 +47,29 @@ public class ThreadPrinter {
         printer2.start();
     }
 
+    public static void run() throws InterruptedException {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while (counter.get() < 100) {
+                    synchronized (this) {
+                        try {
+                            this.notifyAll();
+                            System.out.println(Thread.currentThread().getName() + "\t->\t" + counter.getAndIncrement());
+                            this.wait();
+                            System.out.println(Thread.currentThread().getName() + " after wait");
+                        } catch (InterruptedException e) {
+                            Thread.interrupted();
+                        }
+                    }
+                }
+            }
+        };
+        Thread printer1 = new Thread(runnable, "Printer1");
+        Thread printer2 = new Thread(runnable, "Printer2");
+        printer1.start();
+        Thread.sleep(10);
+        printer2.start();
+    }
+
 }
