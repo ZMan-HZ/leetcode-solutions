@@ -1,7 +1,6 @@
 package com.zzm.solutions.leetcode.common;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Optional;
 
@@ -12,11 +11,13 @@ import java.util.Optional;
  * @version v1.0.0
  * @since 2021/6/20 星期日
  */
-public class CyclicLinkedTable {
+public class CyclicLinkedTable<K> {
     /**
      * 数据域
      */
     public final Integer data;
+
+    public K key;
     /**
      * 指针域
      */
@@ -31,6 +32,10 @@ public class CyclicLinkedTable {
         this.data = data;
     }
 
+    public CyclicLinkedTable(K key, Integer data) {
+        this.data = data;
+        this.key = key;
+    }
 
     public CyclicLinkedTable(Integer data, CyclicLinkedTable predecessor, CyclicLinkedTable successor) {
         this.data = data;
@@ -47,6 +52,10 @@ public class CyclicLinkedTable {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+        return new ToStringBuilder(this)
+                .append("data", data)
+                .append("predecessor", predecessor)
+                .append("successor", successor)
+                .toString();
     }
 }
