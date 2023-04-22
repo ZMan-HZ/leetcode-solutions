@@ -107,6 +107,7 @@ public class MergeTwoSortedLinkedTable {
             }
             current = current.next;
         }
+
         if (Objects.nonNull(left)) {
             current.next = left;
         }
@@ -136,8 +137,10 @@ public class MergeTwoSortedLinkedTable {
         rRoot.next = right1;
         right1.next = right2;
 
-        LinkedTable table = mergeLinkedTable(lRoot, rRoot);
+        LinkedTable table = mergeLinkedTable(lRoot.copy(), rRoot.copy());
+        LinkedTable table1 = mergeTwoLinkedTable(lRoot.copy(), rRoot.copy());
         System.out.println(String.format("%s is merged", table.toString()));
+        System.out.println(String.format("%s is merged", table1.toString()));
 
 
     }

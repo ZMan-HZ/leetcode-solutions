@@ -96,7 +96,7 @@ public class MirrorSymmetricTree {
                 return false;
             }
 
-            queue.offer(left.left);
+            queue.add(left.left);
             queue.add(right.right);
 
             queue.add(left.right);
